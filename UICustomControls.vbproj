@@ -15,4 +15,16 @@
     <Service Include="{94e38dff-614b-4cbd-b67c-f211bb35ce8b}" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="MetroRichTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="MetroLabel.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="MetroCheckBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

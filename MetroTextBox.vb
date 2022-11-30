@@ -11,7 +11,6 @@
     Private m_shadowThickness As Integer
     Private m_borderRound As UInteger
 
-
     Public Property BorderColor As Color
         Get
             Return m_borderColor
