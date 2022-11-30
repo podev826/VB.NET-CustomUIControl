@@ -1,7 +1,4 @@
-﻿
-Imports System.ComponentModel
-
-Public Class MetroTextBox
+﻿Public Class MetroTextBox
     Inherits TextBox
 
     Public Sub New()
