@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UICustomControls", "UICustomControls.vbproj", "{CE5BF0FD-D9F5-4BF0-83D7-C5256809FF5D}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestControls", "..\TestControls\TestControls.vbproj", "{F4B8EC21-CB32-44B7-A7C8-648E3EC85A4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE5BF0FD-D9F5-4BF0-83D7-C5256809FF5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE5BF0FD-D9F5-4BF0-83D7-C5256809FF5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE5BF0FD-D9F5-4BF0-83D7-C5256809FF5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE5BF0FD-D9F5-4BF0-83D7-C5256809FF5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4B8EC21-CB32-44B7-A7C8-648E3EC85A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4B8EC21-CB32-44B7-A7C8-648E3EC85A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4B8EC21-CB32-44B7-A7C8-648E3EC85A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4B8EC21-CB32-44B7-A7C8-648E3EC85A4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9C70D5B2-BB6B-4D3F-A95A-3505C14F2E09}
+	EndGlobalSection
+EndGlobal
