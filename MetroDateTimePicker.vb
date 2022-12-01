@@ -1,5 +1,5 @@
-﻿Public Class MetroComboBox
-    Inherits ComboBox
+﻿Public Class MetroDateTimePicker
+    Inherits DateTimePicker
 
     Public Event Paint2 As PaintEventHandler
     Protected Overrides Sub WndProc(ByRef m As Message)
@@ -72,17 +72,17 @@
         g.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
         Dim diam As Single = Math.Min(m_borderRound, Math.Min(Height, Width))
         Dim r As New Rectangle(
-                CSng(Location.X - m_borderThickness / 2),
-                CSng(Location.Y - m_borderThickness / 2),
-                Width + m_borderThickness,
-                Height + m_borderThickness)
+            CSng(Location.X - m_borderThickness / 2),
+            CSng(Location.Y - m_borderThickness / 2),
+            Width + m_borderThickness,
+            Height + m_borderThickness)
         Dim path As Drawing2D.GraphicsPath = RoundedRectangle(r, diam)
 
         Dim shadow As New Rectangle(
-                CSng(Location.X - m_borderThickness + m_shadowThickness),
-                CSng(Location.Y - m_borderThickness + m_shadowThickness),
-                Width + 2 * m_borderThickness,
-                Height + 2 * m_borderThickness)
+            CSng(Location.X - m_borderThickness + m_shadowThickness),
+            CSng(Location.Y - m_borderThickness + m_shadowThickness),
+            Width + 2 * m_borderThickness,
+            Height + 2 * m_borderThickness)
         Dim shadowPath As Drawing2D.GraphicsPath = RoundedRectangle(shadow, 2 * diam)
         g.FillPath(New SolidBrush(m_shadowColor), shadowPath)
         g.DrawPath(New Pen(m_borderColor, m_borderThickness), path)
