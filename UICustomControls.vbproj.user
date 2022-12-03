@@ -7,9 +7,6 @@
     <Compile Update="MetroCheckBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="MetroDateTimePicker.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Update="MetroLabel.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -21,6 +18,9 @@
     </Compile>
     <Compile Update="MetroTabControl.vb">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="MetroDateTimePicker.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="MetroTextBox.vb">
       <SubType>Component</SubType>

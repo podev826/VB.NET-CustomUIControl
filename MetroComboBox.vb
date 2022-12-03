@@ -1,7 +1,13 @@
 ﻿Public Class MetroComboBox
     Inherits ComboBox
+    Public Sub New()
 
-    Public Event Paint2 As PaintEventHandler
+        ' This call is required by the designer.
+        InitializeComponent()
+        FlatStyle = FlatStyle.Flat
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
     Protected Overrides Sub WndProc(ByRef m As Message)
         MyBase.WndProc(m)
         Select Case m.Msg
@@ -15,11 +21,11 @@
         End Select
     End Sub
 
-    Private m_borderColor As Color
-    Private m_borderThickness As UInteger
-    Private m_shadowColor As Color
-    Private m_shadowThickness As Integer
-    Private m_borderRound As UInteger
+    Private m_borderColor As Color = Color.Black
+    Private m_borderThickness As UInteger = 1
+    Private m_shadowColor As Color = Color.Gray
+    Private m_shadowThickness As Integer = 0
+    Private m_borderRound As UInteger = 0
 
     Public Property BorderColor As Color
         Get
@@ -72,10 +78,10 @@
         g.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
         Dim diam As Single = Math.Min(m_borderRound, Math.Min(Height, Width))
         Dim r As New Rectangle(
-                CSng(Location.X - m_borderThickness / 2),
-                CSng(Location.Y - m_borderThickness / 2),
-                Width + m_borderThickness,
-                Height + m_borderThickness)
+                CSng(Location.X - m_borderThickness / 2 - 1),
+                CSng(Location.Y - m_borderThickness / 2 - 1),
+                Width + m_borderThickness + 1,
+                Height + m_borderThickness + 1)
         Dim path As Drawing2D.GraphicsPath = RoundedRectangle(r, diam)
 
         Dim shadow As New Rectangle(

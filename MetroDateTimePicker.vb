@@ -1,7 +1,4 @@
 ﻿Public Class MetroDateTimePicker
-    Inherits DateTimePicker
-
-    Public Event Paint2 As PaintEventHandler
     Protected Overrides Sub WndProc(ByRef m As Message)
         MyBase.WndProc(m)
         Select Case m.Msg
@@ -14,12 +11,23 @@
                 End If
         End Select
     End Sub
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+        If keyData = Keys.Tab Then
+            SendKeys.Send("{RIGHT}")
+            Return True
+        End If
+        If keyData = (Keys.Shift Or Keys.Tab) Then
+            SendKeys.Send("{LEFT}")
+            Return True
+        End If
+        Return MyBase.ProcessCmdKey(msg, keyData)
+    End Function
 
-    Private m_borderColor As Color
-    Private m_borderThickness As UInteger
-    Private m_shadowColor As Color
-    Private m_shadowThickness As Integer
-    Private m_borderRound As UInteger
+    Private m_borderColor As Color = Color.Black
+    Private m_borderThickness As UInteger = 1
+    Private m_shadowColor As Color = Color.Gray
+    Private m_shadowThickness As Integer = 0
+    Private m_borderRound As UInteger = 0
 
     Public Property BorderColor As Color
         Get
@@ -102,4 +110,18 @@
         Return path
     End Function
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        DateTimePicker2.Select()
+        DomainUpDown1.Visible = True
+        DateTimePicker2.ShowUpDown = False
+        SendKeys.Send("%{DOWN}")
+        Me.Invalidate()
+    End Sub
+
+    Private Sub DomainUpDown1_SelectedItemChanged(sender As Object, e As EventArgs) Handles DomainUpDown1.SelectedItemChanged, DomainUpDown1.Click
+        DomainUpDown1.Visible = False
+        DateTimePicker2.Select()
+        DateTimePicker2.ShowUpDown = True
+        Me.Invalidate()
+    End Sub
 End Class

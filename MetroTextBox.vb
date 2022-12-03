@@ -16,6 +16,7 @@
             Return m_borderColor
         End Get
         Set(value As Color)
+            BorderStyle = BorderStyle.None
             m_borderColor = value
             Me.Invalidate()
         End Set
