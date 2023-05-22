@@ -5,11 +5,11 @@
         SetStyle(ControlStyles.UserPaint, True)
     End Sub
 
-    Private m_borderColor As Color
-    Private m_borderThickness As UInteger
-    Private m_shadowColor As Color
-    Private m_shadowThickness As Integer
-    Private m_borderRound As UInteger
+    Private m_borderColor As Color = Color.Black
+    Private m_borderThickness As UInteger = 0
+    Private m_shadowColor As Color = Color.Gray
+    Private m_shadowThickness As Integer = 0
+    Private m_borderRound As UInteger = 0
 
     Public Property BorderColor As Color
         Get
@@ -26,6 +26,11 @@
         End Get
         Set(value As Integer)
             m_borderThickness = value
+            Margin = New Padding(
+            Margin.Left + m_borderThickness,
+            Margin.Top + m_borderThickness,
+            Margin.Right + m_borderThickness + m_shadowThickness,
+            Margin.Bottom + m_borderThickness + m_shadowThickness)
             Me.Invalidate()
         End Set
     End Property
@@ -44,6 +49,11 @@
         End Get
         Set(value As Integer)
             m_shadowThickness = value
+            Margin = New Padding(
+            Margin.Left + m_borderThickness,
+            Margin.Top + m_borderThickness,
+            Margin.Right + m_borderThickness + m_shadowThickness,
+            Margin.Bottom + m_borderThickness + m_shadowThickness)
             Me.Invalidate()
         End Set
     End Property
@@ -62,10 +72,10 @@
         g.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
         Dim diam As Single = Math.Min(m_borderRound, Math.Min(Height, Width))
         Dim r As New Rectangle(
-                CSng(Location.X - m_borderThickness / 2),
-                CSng(Location.Y - m_borderThickness / 2),
-                Width + m_borderThickness,
-                Height + m_borderThickness)
+                CSng(Location.X - m_borderThickness / 2 - 1),
+                CSng(Location.Y - m_borderThickness / 2 - 1),
+                Width + m_borderThickness + 1,
+                Height + m_borderThickness + 1)
         Dim path As Drawing2D.GraphicsPath = RoundedRectangle(r, diam)
 
         Dim shadow As New Rectangle(
@@ -74,10 +84,13 @@
                 Width + 2 * m_borderThickness,
                 Height + 2 * m_borderThickness)
         Dim shadowPath As Drawing2D.GraphicsPath = RoundedRectangle(shadow, 2 * diam)
-        g.FillPath(New SolidBrush(m_shadowColor), shadowPath)
+        If m_shadowThickness > 0 Then
+            g.FillPath(New SolidBrush(m_shadowColor), shadowPath)
+        End If
         MyBase.OnPaint(e)
-        g.DrawPath(New Pen(m_borderColor, m_borderThickness), path)
-
+        If m_borderThickness > 0 Then
+            g.DrawPath(New Pen(m_borderColor, m_borderThickness), path)
+        End If
     End Sub
     Private Function RoundedRectangle(rect As RectangleF, diam As Single) As Drawing2D.GraphicsPath
         Dim path As New Drawing2D.GraphicsPath

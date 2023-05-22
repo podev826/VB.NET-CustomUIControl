@@ -59,14 +59,14 @@ Partial Class MetroDateTimePicker
         Me.DateTimePicker2.Size = New System.Drawing.Size(302, 23)
         Me.DateTimePicker2.TabIndex = 1
         '
-        'MetroTest
+        'MetroDateTimePicker
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.DomainUpDown1)
         Me.Controls.Add(Me.DateTimePicker2)
-        Me.Name = "MetroTest"
+        Me.Name = "MetroDateTimePicker"
         Me.Size = New System.Drawing.Size(300, 21)
         Me.ResumeLayout(False)
 

@@ -118,7 +118,7 @@
         Me.Invalidate()
     End Sub
 
-    Private Sub DomainUpDown1_SelectedItemChanged(sender As Object, e As EventArgs) Handles DomainUpDown1.SelectedItemChanged, DomainUpDown1.Click
+    Private Sub DomainUpDown1_MouseEntered(sender As Object, e As EventArgs) Handles DomainUpDown1.Enter
         DomainUpDown1.Visible = False
         DateTimePicker2.Select()
         DateTimePicker2.ShowUpDown = True

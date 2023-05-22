@@ -1,16 +1,31 @@
 ﻿Public Class MetroToolStrip
     Inherits ToolStrip
-
     Public Sub New()
-        MyBase.New()
-        SetStyle(ControlStyles.UserPaint, True)
+        MyBase.New
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
+    Protected Overrides Sub WndProc(ByRef m As Message)
+        MyBase.WndProc(m)
+        Select Case m.Msg
+            Case &HF
+
+                Dim g As Graphics = Me.CreateGraphics
+
+                If ComboBoxRenderer.IsSupported Then
+                    CustomPaint()
+                End If
+        End Select
     End Sub
 
-    Private m_borderColor As Color
-    Private m_borderThickness As UInteger
-    Private m_shadowColor As Color
-    Private m_shadowThickness As Integer
-    Private m_borderRound As UInteger
+    Private m_borderColor As Color = Color.Black
+    Private m_borderThickness As UInteger = 1
+    Private m_shadowColor As Color = Color.Gray
+    Private m_shadowThickness As Integer = 0
+    Private m_borderRound As UInteger = 0
 
     Public Property BorderColor As Color
         Get
@@ -27,6 +42,11 @@
         End Get
         Set(value As Integer)
             m_borderThickness = value
+            Margin = New Padding(
+            Margin.Left + m_borderThickness,
+            Margin.Top + m_borderThickness,
+            Margin.Right + m_borderThickness + m_shadowThickness,
+            Margin.Bottom + m_borderThickness + m_shadowThickness)
             Me.Invalidate()
         End Set
     End Property
@@ -45,6 +65,11 @@
         End Get
         Set(value As Integer)
             m_shadowThickness = value
+            Margin = New Padding(
+            Margin.Left + m_borderThickness,
+            Margin.Top + m_borderThickness,
+            Margin.Right + m_borderThickness + m_shadowThickness,
+            Margin.Bottom + m_borderThickness + m_shadowThickness)
             Me.Invalidate()
         End Set
     End Property
@@ -58,15 +83,15 @@
         End Set
     End Property
 
-    Protected Overrides Sub OnPaint(e As System.Windows.Forms.PaintEventArgs)
+    Protected Sub CustomPaint()
         Dim g As Graphics = Parent.CreateGraphics
         g.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
         Dim diam As Single = Math.Min(m_borderRound, Math.Min(Height, Width))
         Dim r As New Rectangle(
-                CSng(Location.X - m_borderThickness / 2),
-                CSng(Location.Y - m_borderThickness / 2),
-                Width + m_borderThickness,
-                Height + m_borderThickness)
+                CSng(Location.X - m_borderThickness / 2 - 1),
+                CSng(Location.Y - m_borderThickness / 2 - 1),
+                Width + m_borderThickness + 1,
+                Height + m_borderThickness + 1)
         Dim path As Drawing2D.GraphicsPath = RoundedRectangle(r, diam)
 
         Dim shadow As New Rectangle(
@@ -75,10 +100,12 @@
                 Width + 2 * m_borderThickness,
                 Height + 2 * m_borderThickness)
         Dim shadowPath As Drawing2D.GraphicsPath = RoundedRectangle(shadow, 2 * diam)
-        g.FillPath(New SolidBrush(m_shadowColor), shadowPath)
-        MyBase.OnPaint(e)
-        g.DrawPath(New Pen(m_borderColor, m_borderThickness), path)
-
+        If m_shadowThickness > 0 Then
+            g.FillPath(New SolidBrush(m_shadowColor), shadowPath)
+        End If
+        If m_borderThickness > 0 Then
+            g.DrawPath(New Pen(m_borderColor, m_borderThickness), path)
+        End If
     End Sub
     Private Function RoundedRectangle(rect As RectangleF, diam As Single) As Drawing2D.GraphicsPath
         Dim path As New Drawing2D.GraphicsPath

@@ -42,6 +42,11 @@
         End Get
         Set(value As Integer)
             m_borderThickness = value
+            Margin = New Padding(
+            Margin.Left + m_borderThickness,
+            Margin.Top + m_borderThickness,
+            Margin.Right + m_borderThickness + m_shadowThickness,
+            Margin.Bottom + m_borderThickness + m_shadowThickness)
             Me.Invalidate()
         End Set
     End Property
@@ -60,6 +65,11 @@
         End Get
         Set(value As Integer)
             m_shadowThickness = value
+            Margin = New Padding(
+            Margin.Left + m_borderThickness,
+            Margin.Top + m_borderThickness,
+            Margin.Right + m_borderThickness + m_shadowThickness,
+            Margin.Bottom + m_borderThickness + m_shadowThickness)
             Me.Invalidate()
         End Set
     End Property
@@ -90,9 +100,12 @@
                 Width + 2 * m_borderThickness,
                 Height + 2 * m_borderThickness)
         Dim shadowPath As Drawing2D.GraphicsPath = RoundedRectangle(shadow, 2 * diam)
-        g.FillPath(New SolidBrush(m_shadowColor), shadowPath)
-        g.DrawPath(New Pen(m_borderColor, m_borderThickness), path)
-
+        If m_shadowThickness > 0 Then
+            g.FillPath(New SolidBrush(m_shadowColor), shadowPath)
+        End If
+        If m_borderThickness > 0 Then
+            g.DrawPath(New Pen(m_borderColor, m_borderThickness), path)
+        End If
     End Sub
     Private Function RoundedRectangle(rect As RectangleF, diam As Single) As Drawing2D.GraphicsPath
         Dim path As New Drawing2D.GraphicsPath

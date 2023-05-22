@@ -22,13 +22,19 @@ Public Class MetroButton
             Me.Invalidate()
         End Set
     End Property
-
     Public Property BorderThickness As Integer
         Get
             Return m_borderThickness
         End Get
         Set(value As Integer)
+            Margin = New Padding(
+                Margin.Left + value - m_borderThickness,
+                Margin.Top + value - m_borderThickness,
+                Margin.Right + value - m_borderThickness + m_shadowThickness,
+                Margin.Bottom + value - m_borderThickness + m_shadowThickness)
+
             m_borderThickness = value
+
             Me.Invalidate()
         End Set
     End Property
@@ -46,6 +52,11 @@ Public Class MetroButton
             Return m_shadowThickness
         End Get
         Set(value As Integer)
+            Margin = New Padding(
+                Margin.Left,
+                Margin.Top,
+                Margin.Right + value - m_shadowThickness,
+                Margin.Bottom + value - m_shadowThickness)
             m_shadowThickness = value
             Me.Invalidate()
         End Set
@@ -68,9 +79,9 @@ Public Class MetroButton
         Dim diam As Single = Math.Min(m_borderRound, Math.Min(Height, Width))
         Dim r As New Rectangle(
                 CSng(Location.X - m_borderThickness / 2 - 1),
-                CSng(Location.Y - m_borderThickness / 2),
+                CSng(Location.Y - m_borderThickness / 2 - 1),
                 Width + m_borderThickness + 1,
-                Height + m_borderThickness)
+                Height + m_borderThickness + 1)
         Dim path As Drawing2D.GraphicsPath = RoundedRectangle(r, diam)
 
         Dim shadow As New Rectangle(
@@ -79,9 +90,13 @@ Public Class MetroButton
                 Width + 2 * m_borderThickness,
                 Height + 2 * m_borderThickness)
         Dim shadowPath As Drawing2D.GraphicsPath = RoundedRectangle(shadow, 2 * diam)
-        g.FillPath(New SolidBrush(m_shadowColor), shadowPath)
+        If m_shadowThickness > 0 Then
+            g.FillPath(New SolidBrush(m_shadowColor), shadowPath)
+        End If
         MyBase.OnPaint(e)
-        g.DrawPath(New Pen(m_borderColor, m_borderThickness), path)
+        If m_borderThickness > 0 Then
+            g.DrawPath(New Pen(m_borderColor, m_borderThickness), path)
+        End If
     End Sub
     Private Function RoundedRectangle(rect As RectangleF, diam As Single) As Drawing2D.GraphicsPath
         Dim path As New Drawing2D.GraphicsPath
